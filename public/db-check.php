@@ -5,7 +5,6 @@
  * @author     Ralf Eggert <ralf@travello.de>
  * @link       https://github.com/RalfEggert/ipc2017-expressive
  * @license    http://opensource.org/licenses/MIT The MIT License (MIT)
- *
  */
 
 $dsn = 'mysql:host=localhost;dbname=ipc2017-expressive;charset=utf8';
