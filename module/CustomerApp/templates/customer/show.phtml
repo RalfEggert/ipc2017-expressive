@@ -1,0 +1,49 @@
+<?php
+/**
+ * IPC2017 Zend\Expressive Workshop
+ *
+ * @author     Ralf Eggert <ralf@travello.de>
+ * @link       https://github.com/RalfEggert/ipc2017-expressive
+ * @license    http://opensource.org/licenses/MIT The MIT License (MIT)
+ */
+
+$customer = $this->customer;
+?>
+<h1>Kunde anzeigen</h1>
+<table class="table">
+  <tbody>
+  <tr>
+    <td>Id</td>
+    <td><?= $customer['id'] ?></td>
+  </tr>
+  <tr>
+    <td>Vorname</td>
+    <td><?= $customer['first_name'] ?></td>
+  </tr>
+  <tr>
+    <td>Nachname</td>
+    <td><?= $customer['last_name'] ?></td>
+  </tr>
+  <tr>
+    <td>Land</td>
+    <td><?= $customer['country'] ?></td>
+  </tr>
+  <tr>
+    <td>E-Mail</td>
+    <td><?= $customer['email'] ?></td>
+  </tr>
+  <tr>
+    <td>Status</td>
+    <td><?= $customer['status'] ?></td>
+  </tr>
+  <tr>
+    <td>Datum</td>
+    <td><?= $customer['date'] ?></td>
+  </tr>
+  </tbody>
+</table>
+<p>
+  <a href="<?= $this->url('customer-list') ?> " class="btn btn-primary">
+    Kundenliste
+  </a>
+</p>

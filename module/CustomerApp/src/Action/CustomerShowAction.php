@@ -17,11 +17,11 @@ use Zend\Diactoros\Response\HtmlResponse;
 use Zend\Expressive\Template\TemplateRendererInterface;
 
 /**
- * Class CustomerListAction
+ * Class CustomerShowAction
  *
  * @package CustomerApp\Action
  */
-class CustomerListAction implements MiddlewareInterface
+class CustomerShowAction implements MiddlewareInterface
 {
     /**
      * @var TemplateRendererInterface
@@ -34,7 +34,7 @@ class CustomerListAction implements MiddlewareInterface
     private $customerRepository;
 
     /**
-     * CustomerListAction constructor.
+     * CustomerShowAction constructor.
      *
      * @param TemplateRendererInterface   $template
      * @param CustomerRepositoryInterface $customerRepository
@@ -56,12 +56,14 @@ class CustomerListAction implements MiddlewareInterface
     public function process(
         ServerRequestInterface $request, DelegateInterface $delegate
     ): HtmlResponse {
+        $id = $request->getAttribute('id');
+
         $data = [
-            'customerList' => $this->customerRepository->getCustomerList(),
+            'customer' => $this->customerRepository->getCustomerById($id),
         ];
 
         return new HtmlResponse(
-            $this->template->render('customer::list', $data)
+            $this->template->render('customer::show', $data)
         );
     }
 }

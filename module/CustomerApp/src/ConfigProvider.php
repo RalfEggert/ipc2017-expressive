@@ -11,6 +11,8 @@ namespace CustomerApp;
 
 use CustomerApp\Action\CustomerListAction;
 use CustomerApp\Action\CustomerListFactory;
+use CustomerApp\Action\CustomerShowAction;
+use CustomerApp\Action\CustomerShowFactory;
 
 /**
  * Class ConfigProvider
@@ -38,6 +40,7 @@ class ConfigProvider
         return [
             'factories' => [
                 CustomerListAction::class => CustomerListFactory::class,
+                CustomerShowAction::class => CustomerShowFactory::class,
             ],
         ];
     }

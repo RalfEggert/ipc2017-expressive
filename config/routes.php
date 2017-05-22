@@ -26,9 +26,12 @@
  * );
  */
 use CustomerApp\Action\CustomerListAction;
+use CustomerApp\Action\CustomerShowAction;
 use Zend\Expressive\Application;
 
 /** @var Application $app */
 $app->get('/', App\Action\HomePageAction::class, 'home');
 $app->get('/api/ping', App\Action\PingAction::class, 'api.ping');
 $app->get('/customer', CustomerListAction::class, 'customer-list');
+$app->get('/customer/:id', CustomerShowAction::class, 'customer-show')
+    ->setOptions(['constraints' => ['id' => '[0-9]+']]);

@@ -15,18 +15,18 @@ use Zend\Expressive\Template\TemplateRendererInterface;
 use Zend\ServiceManager\Factory\FactoryInterface;
 
 /**
- * Class CustomerListFactory
+ * Class CustomerShowFactory
  *
  * @package CustomerApp\Action
  */
-class CustomerListFactory implements FactoryInterface
+class CustomerShowFactory implements FactoryInterface
 {
     /**
      * @param ContainerInterface $container
      * @param string             $requestedName
      * @param array|null         $options
      *
-     * @return mixed
+     * @return CustomerShowAction
      */
     public function __invoke(
         ContainerInterface $container, $requestedName, array $options = null
@@ -34,6 +34,6 @@ class CustomerListFactory implements FactoryInterface
         $template   = $container->get(TemplateRendererInterface::class);
         $repository = $container->get(CustomerRepositoryInterface::class);
 
-        return new CustomerListAction($template, $repository);
+        return new CustomerShowAction($template, $repository);
     }
 }
