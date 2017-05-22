@@ -9,6 +9,9 @@
 
 namespace CustomerApp;
 
+use CustomerApp\Action\CustomerListAction;
+use Zend\ServiceManager\Factory\InvokableFactory;
+
 /**
  * Class ConfigProvider
  *
@@ -32,7 +35,11 @@ class ConfigProvider
      */
     public function getDependencies(): array
     {
-        return [];
+        return [
+            'factories' => [
+                CustomerListAction::class => InvokableFactory::class,
+            ],
+        ];
     }
 
     /**

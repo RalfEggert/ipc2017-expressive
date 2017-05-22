@@ -25,6 +25,10 @@
  *     'contact'
  * );
  */
+use CustomerApp\Action\CustomerListAction;
+use Zend\Expressive\Application;
 
+/** @var Application $app */
 $app->get('/', App\Action\HomePageAction::class, 'home');
 $app->get('/api/ping', App\Action\PingAction::class, 'api.ping');
+$app->get('/customer', CustomerListAction::class, 'customer-list');
