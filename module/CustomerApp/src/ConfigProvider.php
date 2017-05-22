@@ -9,14 +9,20 @@
 
 namespace CustomerApp;
 
-use CustomerApp\Action\CustomerCreateAction;
-use CustomerApp\Action\CustomerCreateFactory;
+use CustomerApp\Action\CustomerCreateFormAction;
+use CustomerApp\Action\CustomerCreateFormFactory;
+use CustomerApp\Action\CustomerCreateHandleAction;
+use CustomerApp\Action\CustomerCreateHandleFactory;
 use CustomerApp\Action\CustomerListAction;
 use CustomerApp\Action\CustomerListFactory;
 use CustomerApp\Action\CustomerShowAction;
 use CustomerApp\Action\CustomerShowFactory;
+use CustomerApp\Action\CustomerUpdateFormAction;
+use CustomerApp\Action\CustomerUpdateFormFactory;
 use CustomerApp\Config\RouterDelegatorFactory;
+use CustomerApp\Form\CustomerForm;
 use Zend\Expressive\Application;
+use Zend\ServiceManager\Factory\InvokableFactory;
 
 /**
  * Class ConfigProvider
@@ -31,8 +37,9 @@ class ConfigProvider
     public function __invoke(): array
     {
         return [
-            'dependencies' => $this->getDependencies(),
-            'templates'    => $this->getTemplates(),
+            'dependencies'  => $this->getDependencies(),
+            'form_elements' => $this->getFormElements(),
+            'templates'     => $this->getTemplates(),
         ];
     }
 
@@ -43,12 +50,26 @@ class ConfigProvider
     {
         return [
             'factories'  => [
-                CustomerListAction::class   => CustomerListFactory::class,
-                CustomerShowAction::class   => CustomerShowFactory::class,
-                CustomerCreateAction::class => CustomerCreateFactory::class,
+                CustomerListAction::class         => CustomerListFactory::class,
+                CustomerShowAction::class         => CustomerShowFactory::class,
+                CustomerCreateFormAction::class   => CustomerCreateFormFactory::class,
+                CustomerCreateHandleAction::class => CustomerCreateHandleFactory::class,
+                CustomerUpdateFormAction::class   => CustomerUpdateFormFactory::class,
             ],
             'delegators' => [
                 Application::class => [RouterDelegatorFactory::class],
+            ],
+        ];
+    }
+
+    /**
+     * @return array
+     */
+    public function getFormElements(): array
+    {
+        return [
+            'factories' => [
+                CustomerForm::class => InvokableFactory::class,
             ],
         ];
     }

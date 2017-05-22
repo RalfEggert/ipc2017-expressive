@@ -9,9 +9,10 @@
 
 namespace CustomerApp\Config;
 
-use CustomerApp\Action\CustomerCreateAction;
+use CustomerApp\Action\CustomerCreateFormAction;
 use CustomerApp\Action\CustomerListAction;
 use CustomerApp\Action\CustomerShowAction;
+use CustomerApp\Action\CustomerUpdateFormAction;
 use Interop\Container\ContainerInterface;
 use Zend\Expressive\Application;
 use Zend\ServiceManager\Factory\DelegatorFactoryInterface;
@@ -42,8 +43,13 @@ class RouterDelegatorFactory implements DelegatorFactoryInterface
         $app->get('/customer/:id', CustomerShowAction::class, 'customer-show')
             ->setOptions(['constraints' => ['id' => '[0-9]+']]);
         $app->get(
-            '/customer/create', CustomerCreateAction::class, 'customer-create'
+            '/customer/create', CustomerCreateFormAction::class,
+            'customer-create-form'
         );
+        $app->get(
+            '/customer/update/:id', CustomerUpdateFormAction::class,
+            'customer-update-form'
+        )->setOptions(['constraints' => ['id' => '[0-9]+']]);
 
         return $app;
     }

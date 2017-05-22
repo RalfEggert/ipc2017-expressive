@@ -17,11 +17,11 @@ use Zend\Diactoros\Response\RedirectResponse;
 use Zend\Expressive\Router\RouterInterface;
 
 /**
- * Class CustomerCreateAction
+ * Class CustomerCreateHandleAction
  *
  * @package CustomerApp\Action
  */
-class CustomerCreateAction implements MiddlewareInterface
+class CustomerCreateHandleAction implements MiddlewareInterface
 {
     /**
      * @var CustomerRepositoryInterface
@@ -34,7 +34,7 @@ class CustomerCreateAction implements MiddlewareInterface
     private $router;
 
     /**
-     * CustomerCreateAction constructor.
+     * CustomerCreateHandleAction constructor.
      *
      * @param CustomerRepositoryInterface $customerRepository
      * @param RouterInterface             $router

@@ -15,18 +15,18 @@ use Zend\Expressive\Router\RouterInterface;
 use Zend\ServiceManager\Factory\FactoryInterface;
 
 /**
- * Class CustomerCreateFactory
+ * Class CustomerCreateHandleFactory
  *
  * @package CustomerApp\Action
  */
-class CustomerCreateFactory implements FactoryInterface
+class CustomerCreateHandleFactory implements FactoryInterface
 {
     /**
      * @param ContainerInterface $container
      * @param string             $requestedName
      * @param array|null         $options
      *
-     * @return CustomerCreateAction
+     * @return CustomerCreateHandleAction
      */
     public function __invoke(
         ContainerInterface $container, $requestedName, array $options = null
@@ -34,6 +34,6 @@ class CustomerCreateFactory implements FactoryInterface
         $repository = $container->get(CustomerRepositoryInterface::class);
         $router     = $container->get(RouterInterface::class);
 
-        return new CustomerCreateAction($repository, $router);
+        return new CustomerCreateHandleAction($repository, $router);
     }
 }
