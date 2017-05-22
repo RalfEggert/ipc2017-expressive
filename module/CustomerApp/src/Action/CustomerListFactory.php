@@ -9,6 +9,7 @@
 
 namespace CustomerApp\Action;
 
+use CustomerDomain\Repository\CustomerRepositoryInterface;
 use Interop\Container\ContainerInterface;
 use Zend\Expressive\Template\TemplateRendererInterface;
 use Zend\ServiceManager\Factory\FactoryInterface;
@@ -30,9 +31,10 @@ class CustomerListFactory implements FactoryInterface
     public function __invoke(
         ContainerInterface $container, $requestedName, array $options = null
     ) {
-        $template = $container->get(TemplateRendererInterface::class);
+        $template   = $container->get(TemplateRendererInterface::class);
+        $repository = $container->get(CustomerRepositoryInterface::class);
 
-        $action = new CustomerListAction($template);
+        $action = new CustomerListAction($template, $repository);
 
         return $action;
     }

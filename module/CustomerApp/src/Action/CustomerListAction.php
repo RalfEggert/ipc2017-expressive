@@ -9,6 +9,7 @@
 
 namespace CustomerApp\Action;
 
+use CustomerDomain\Repository\CustomerRepositoryInterface;
 use Interop\Http\ServerMiddleware\DelegateInterface;
 use Interop\Http\ServerMiddleware\MiddlewareInterface as ServerMiddlewareInterface;
 use Psr\Http\Message\ServerRequestInterface;
@@ -28,24 +29,39 @@ class CustomerListAction implements ServerMiddlewareInterface
     private $template;
 
     /**
+     * @var CustomerRepositoryInterface
+     */
+    private $customerRepository;
+
+    /**
      * CustomerListAction constructor.
      *
-     * @param TemplateRendererInterface $template
+     * @param TemplateRendererInterface   $template
+     * @param CustomerRepositoryInterface $customerRepository
      */
-    public function __construct(TemplateRendererInterface $template)
-    {
-        $this->template = $template;
+    public function __construct(
+        TemplateRendererInterface $template,
+        CustomerRepositoryInterface $customerRepository
+    ) {
+        $this->template           = $template;
+        $this->customerRepository = $customerRepository;
     }
 
     /**
      * @param ServerRequestInterface $request
      * @param DelegateInterface      $delegate
      *
-     * @return mixed
+     * @return HtmlResponse
      */
     public function process(
         ServerRequestInterface $request, DelegateInterface $delegate
-    ) {
-        return new HtmlResponse($this->template->render('customer::list'));
+    ): HtmlResponse {
+        $data = [
+            'customerList' => $this->customerRepository->getCustomerList(),
+        ];
+
+        return new HtmlResponse(
+            $this->template->render('customer::list', $data)
+        );
     }
 }

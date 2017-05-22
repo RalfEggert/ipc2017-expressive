@@ -8,3 +8,31 @@
  */
 ?>
 <h1>Kundenliste</h1>
+<table class="table">
+  <thead>
+  <tr>
+    <th>ID</th>
+    <th>Vorname</th>
+    <th>Nachname</th>
+    <th>Land</th>
+    <th>E-Mail</th>
+    <th>Status</th>
+    <th>Datum</th>
+    <th>&nbsp;</th>
+  </tr>
+  </thead>
+  <tbody>
+  <?php foreach ($this->customerList as $customer) : ?>
+    <tr>
+      <td><?= $customer['id'] ?></td>
+      <td><?= $customer['first_name'] ?></td>
+      <td><?= $customer['last_name'] ?></td>
+      <td><?= $customer['country'] ?></td>
+      <td><?= $customer['email'] ?></td>
+      <td><?= $customer['status'] ?></td>
+      <td><?= $customer['date'] ?></td>
+      <td>-</td>
+    </tr>
+  <?php endforeach; ?>
+  </tbody>
+</table>
