@@ -9,10 +9,12 @@
 
 namespace CustomerApp;
 
+use CustomerApp\Config\RouterDelegatorFactory;
 use CustomerApp\Action\CustomerListAction;
 use CustomerApp\Action\CustomerListFactory;
 use CustomerApp\Action\CustomerShowAction;
 use CustomerApp\Action\CustomerShowFactory;
+use Zend\Expressive\Application;
 
 /**
  * Class ConfigProvider
@@ -41,6 +43,9 @@ class ConfigProvider
             'factories' => [
                 CustomerListAction::class => CustomerListFactory::class,
                 CustomerShowAction::class => CustomerShowFactory::class,
+            ],
+            'delegators' => [
+                Application::class => [RouterDelegatorFactory::class],
             ],
         ];
     }
