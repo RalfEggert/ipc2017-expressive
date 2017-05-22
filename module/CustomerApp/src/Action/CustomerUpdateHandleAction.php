@@ -17,11 +17,11 @@ use Zend\Diactoros\Response\RedirectResponse;
 use Zend\Expressive\Router\RouterInterface;
 
 /**
- * Class CustomerCreateHandleAction
+ * Class CustomerUpdateHandleAction
  *
  * @package CustomerApp\Action
  */
-class CustomerCreateHandleAction implements MiddlewareInterface
+class CustomerUpdateHandleAction implements MiddlewareInterface
 {
     /**
      * @var CustomerRepositoryInterface
@@ -34,7 +34,7 @@ class CustomerCreateHandleAction implements MiddlewareInterface
     private $router;
 
     /**
-     * CustomerCreateHandleAction constructor.
+     * CustomerUpdateHandleAction constructor.
      *
      * @param CustomerRepositoryInterface $customerRepository
      * @param RouterInterface             $router
@@ -48,7 +48,7 @@ class CustomerCreateHandleAction implements MiddlewareInterface
 
     /**
      * Process an incoming server request and return a response, optionally delegating
-     * to the next middleware component to create the response.
+     * to the next middleware component to update the response.
      *
      * @param ServerRequestInterface $request
      * @param DelegateInterface      $delegate
@@ -58,13 +58,15 @@ class CustomerCreateHandleAction implements MiddlewareInterface
     public function process(
         ServerRequestInterface $request, DelegateInterface $delegate
     ) {
-        $insertData = $request->getParsedBody();
+        $id = $request->getAttribute('id');
 
-        $this->customerRepository->saveCustomer($insertData);
+        $updateData = $request->getParsedBody();
+        $updateData['id'] = $id;
+
+        $this->customerRepository->saveCustomer($updateData);
 
         return new RedirectResponse(
             $this->router->generateUri('customer-list')
         );
     }
-
 }

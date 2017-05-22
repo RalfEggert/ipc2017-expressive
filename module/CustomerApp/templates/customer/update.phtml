@@ -11,7 +11,7 @@ use CustomerApp\Form\CustomerForm;
 
 /** @var CustomerForm $customerForm */
 $customerForm = $this->customerForm;
-$customerForm->setAttribute('action', $this->url('customer-create-form'));
+$customerForm->setAttribute('action', $this->url('customer-update-form', ['id' => $this->customer['id']]));
 
 ?>
 <h1>Kunde bearbeiten</h1>

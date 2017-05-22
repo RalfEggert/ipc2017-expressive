@@ -10,9 +10,11 @@
 namespace CustomerApp\Config;
 
 use CustomerApp\Action\CustomerCreateFormAction;
+use CustomerApp\Action\CustomerCreateHandleAction;
 use CustomerApp\Action\CustomerListAction;
 use CustomerApp\Action\CustomerShowAction;
 use CustomerApp\Action\CustomerUpdateFormAction;
+use CustomerApp\Action\CustomerUpdateHandleAction;
 use Interop\Container\ContainerInterface;
 use Zend\Expressive\Application;
 use Zend\ServiceManager\Factory\DelegatorFactoryInterface;
@@ -39,16 +41,40 @@ class RouterDelegatorFactory implements DelegatorFactoryInterface
         /** @var Application $app */
         $app = $callback();
 
-        $app->get('/customer', CustomerListAction::class, 'customer-list');
-        $app->get('/customer/:id', CustomerShowAction::class, 'customer-show')
-            ->setOptions(['constraints' => ['id' => '[0-9]+']]);
         $app->get(
-            '/customer/create', CustomerCreateFormAction::class,
+            '/customer',
+            CustomerListAction::class,
+            'customer-list'
+        );
+
+        $app->get(
+            '/customer/:id',
+            CustomerShowAction::class,
+            'customer-show'
+        )->setOptions(['constraints' => ['id' => '[0-9]+']]);
+
+        $app->get(
+            '/customer/create',
+            CustomerCreateFormAction::class,
             'customer-create-form'
         );
+
+        $app->post(
+            '/customer/create',
+            CustomerCreateHandleAction::class,
+            'customer-create-handle'
+        );
+
         $app->get(
-            '/customer/update/:id', CustomerUpdateFormAction::class,
+            '/customer/update/:id',
+            CustomerUpdateFormAction::class,
             'customer-update-form'
+        )->setOptions(['constraints' => ['id' => '[0-9]+']]);
+
+        $app->post(
+            '/customer/update/:id',
+            CustomerUpdateHandleAction::class,
+            'customer-update-handle'
         )->setOptions(['constraints' => ['id' => '[0-9]+']]);
 
         return $app;

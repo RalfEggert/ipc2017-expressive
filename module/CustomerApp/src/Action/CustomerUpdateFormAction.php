@@ -7,14 +7,6 @@
  * @license    http://opensource.org/licenses/MIT The MIT License (MIT)
  */
 
-/**
- * IPC2017 Zend\Expressive Workshop
- *
- * @author     Ralf Eggert <ralf@travello.de>
- * @link       https://github.com/RalfEggert/ipc2017-expressive
- * @license    http://opensource.org/licenses/MIT The MIT License (MIT)
- */
-
 namespace CustomerApp\Action;
 
 use CustomerApp\Form\CustomerForm;
@@ -84,6 +76,7 @@ class CustomerUpdateFormAction implements MiddlewareInterface
 
         $data = [
             'customerForm' => $this->customerForm,
+            'customer'     => $customer,
         ];
 
         return new HtmlResponse(

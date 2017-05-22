@@ -9,42 +9,31 @@
 
 namespace CustomerApp\Action;
 
-use CustomerApp\Form\CustomerForm;
 use CustomerDomain\Repository\CustomerRepositoryInterface;
 use Interop\Container\ContainerInterface;
-use Zend\Expressive\Template\TemplateRendererInterface;
-use Zend\Form\FormElementManager\FormElementManagerV3Polyfill;
+use Zend\Expressive\Router\RouterInterface;
 use Zend\ServiceManager\Factory\FactoryInterface;
 
 /**
- * Class CustomerUpdateFormFactory
+ * Class CustomerUpdateHandleFactory
  *
  * @package CustomerApp\Action
  */
-class CustomerUpdateFormFactory implements FactoryInterface
+class CustomerUpdateHandleFactory implements FactoryInterface
 {
     /**
      * @param ContainerInterface $container
      * @param string             $requestedName
      * @param array|null         $options
      *
-     * @return CustomerUpdateFormAction
+     * @return CustomerUpdateHandleAction
      */
     public function __invoke(
         ContainerInterface $container, $requestedName, array $options = null
     ) {
-        /** @var FormElementManagerV3Polyfill $formElementManager */
-        $formElementManager = $container->get('FormElementManager');
-
-        $template = $container->get(TemplateRendererInterface::class);
-
-        /** @var CustomerForm $customerForm */
-        $customerForm = $formElementManager->get(CustomerForm::class);
-
         $repository = $container->get(CustomerRepositoryInterface::class);
+        $router     = $container->get(RouterInterface::class);
 
-        return new CustomerUpdateFormAction(
-            $template, $customerForm, $repository
-        );
+        return new CustomerUpdateHandleAction($repository, $router);
     }
 }

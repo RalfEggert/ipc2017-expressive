@@ -19,6 +19,8 @@ use CustomerApp\Action\CustomerShowAction;
 use CustomerApp\Action\CustomerShowFactory;
 use CustomerApp\Action\CustomerUpdateFormAction;
 use CustomerApp\Action\CustomerUpdateFormFactory;
+use CustomerApp\Action\CustomerUpdateHandleAction;
+use CustomerApp\Action\CustomerUpdateHandleFactory;
 use CustomerApp\Config\RouterDelegatorFactory;
 use CustomerApp\Form\CustomerForm;
 use Zend\Expressive\Application;
@@ -55,6 +57,7 @@ class ConfigProvider
                 CustomerCreateFormAction::class   => CustomerCreateFormFactory::class,
                 CustomerCreateHandleAction::class => CustomerCreateHandleFactory::class,
                 CustomerUpdateFormAction::class   => CustomerUpdateFormFactory::class,
+                CustomerUpdateHandleAction::class => CustomerUpdateHandleFactory::class,
             ],
             'delegators' => [
                 Application::class => [RouterDelegatorFactory::class],

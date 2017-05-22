@@ -91,7 +91,11 @@ class CustomerStorage implements CustomerStorageInterface
      */
     public function updateCustomer(int $id, array $data): bool
     {
-        // TODO: Implement updateCustomer() method.
+        $update = $this->tableGateway->getSql()->update();
+        $update->set($data);
+        $update->where->equalTo('id', $id);
+
+        return $this->tableGateway->updateWith($update) > 0;
     }
 
     /**
@@ -101,6 +105,9 @@ class CustomerStorage implements CustomerStorageInterface
      */
     public function deleteCustomer(int $id): bool
     {
-        // TODO: Implement deleteCustomer() method.
+        $delete = $this->tableGateway->getSql()->delete();
+        $delete->where->equalTo('id', $id);
+
+        return $this->tableGateway->deleteWith($delete) > 0;
     }
 }
