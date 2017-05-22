@@ -9,6 +9,9 @@
 
 namespace CustomerDomain;
 
+use CustomerDomain\Repository\ArrayCustomerRepositoryFactory;
+use CustomerDomain\Repository\CustomerRepositoryInterface;
+
 /**
  * Class ConfigProvider
  *
@@ -19,7 +22,7 @@ class ConfigProvider
     /**
      * @return array
      */
-    public function __invoke() : array
+    public function __invoke(): array
     {
         return [
             'dependencies' => $this->getDependencies(),
@@ -29,8 +32,13 @@ class ConfigProvider
     /**
      * @return array
      */
-    public function getDependencies() : array
+    public function getDependencies(): array
     {
-        return [];
+        return [
+            'factories' => [
+                CustomerRepositoryInterface::class =>
+                    ArrayCustomerRepositoryFactory::class,
+            ],
+        ];
     }
 }
