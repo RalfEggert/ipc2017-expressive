@@ -13,6 +13,7 @@ use Interop\Http\ServerMiddleware\DelegateInterface;
 use Interop\Http\ServerMiddleware\MiddlewareInterface as ServerMiddlewareInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Zend\Diactoros\Response\HtmlResponse;
+use Zend\Expressive\Template\TemplateRendererInterface;
 
 /**
  * Class CustomerListAction
@@ -22,6 +23,21 @@ use Zend\Diactoros\Response\HtmlResponse;
 class CustomerListAction implements ServerMiddlewareInterface
 {
     /**
+     * @var TemplateRendererInterface
+     */
+    private $template;
+
+    /**
+     * CustomerListAction constructor.
+     *
+     * @param TemplateRendererInterface $template
+     */
+    public function __construct(TemplateRendererInterface $template)
+    {
+        $this->template = $template;
+    }
+
+    /**
      * @param ServerRequestInterface $request
      * @param DelegateInterface      $delegate
      *
@@ -30,6 +46,6 @@ class CustomerListAction implements ServerMiddlewareInterface
     public function process(
         ServerRequestInterface $request, DelegateInterface $delegate
     ) {
-        return new HtmlResponse('Kundenliste');
+        return new HtmlResponse($this->template->render('customer::list'));
     }
 }

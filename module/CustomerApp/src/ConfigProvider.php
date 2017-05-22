@@ -10,7 +10,7 @@
 namespace CustomerApp;
 
 use CustomerApp\Action\CustomerListAction;
-use Zend\ServiceManager\Factory\InvokableFactory;
+use CustomerApp\Action\CustomerListFactory;
 
 /**
  * Class ConfigProvider
@@ -37,7 +37,7 @@ class ConfigProvider
     {
         return [
             'factories' => [
-                CustomerListAction::class => InvokableFactory::class,
+                CustomerListAction::class => CustomerListFactory::class,
             ],
         ];
     }
@@ -47,6 +47,10 @@ class ConfigProvider
      */
     public function getTemplates(): array
     {
-        return [];
+        return [
+            'paths' => [
+                'customer' => [__DIR__ . '/../templates/customer'],
+            ],
+        ];
     }
 }
