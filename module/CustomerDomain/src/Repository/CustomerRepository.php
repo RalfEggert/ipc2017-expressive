@@ -53,4 +53,28 @@ class CustomerRepository implements CustomerRepositoryInterface
     {
         return $this->customerStorage->fetchCustomerById($id);
     }
+
+    /**
+     * @param $data
+     *
+     * @return bool
+     */
+    public function saveCustomer($data): bool
+    {
+        if (isset($data['id']) && $this->getCustomerById($data['id'])) {
+            return $this->customerStorage->updateCustomer($data['id'], $data);
+        } else {
+            return $this->customerStorage->createCustomer($data);
+        }
+    }
+
+    /**
+     * @param $data
+     *
+     * @return bool
+     */
+    public function deleteCustomer($data): bool
+    {
+        return $this->customerStorage->deleteCustomer($data['id']);
+    }
 }

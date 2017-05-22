@@ -9,6 +9,7 @@
 
 namespace CustomerApp\Config;
 
+use CustomerApp\Action\CustomerCreateAction;
 use CustomerApp\Action\CustomerListAction;
 use CustomerApp\Action\CustomerShowAction;
 use Interop\Container\ContainerInterface;
@@ -40,6 +41,9 @@ class RouterDelegatorFactory implements DelegatorFactoryInterface
         $app->get('/customer', CustomerListAction::class, 'customer-list');
         $app->get('/customer/:id', CustomerShowAction::class, 'customer-show')
             ->setOptions(['constraints' => ['id' => '[0-9]+']]);
+        $app->get(
+            '/customer/create', CustomerCreateAction::class, 'customer-create'
+        );
 
         return $app;
     }

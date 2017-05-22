@@ -6,6 +6,8 @@
  * @link       https://github.com/RalfEggert/ipc2017-expressive
  * @license    http://opensource.org/licenses/MIT The MIT License (MIT)
  */
+
+$createUrl = $this->url('customer-create');
 ?>
 <h1>Kundenliste</h1>
 <table class="table">
@@ -18,7 +20,7 @@
     <th>E-Mail</th>
     <th>Status</th>
     <th>Datum</th>
-    <th>&nbsp;</th>
+    <th><a href="<?= $createUrl ?>" class="btn btn-primary">Anlegen</a></th>
   </tr>
   </thead>
   <tbody>

@@ -7,6 +7,14 @@
  * @license    http://opensource.org/licenses/MIT The MIT License (MIT)
  */
 
+/**
+ * IPC2017 Zend\Expressive Workshop
+ *
+ * @author     Ralf Eggert <ralf@travello.de>
+ * @link       https://github.com/RalfEggert/ipc2017-expressive
+ * @license    http://opensource.org/licenses/MIT The MIT License (MIT)
+ */
+
 namespace CustomerDomain\Storage;
 
 /**
@@ -31,22 +39,22 @@ interface CustomerStorageInterface
     /**
      * @param array $data
      *
-     * @return array
+     * @return bool
      */
-    public function createCustomer(array $data): array;
+    public function createCustomer(array $data): bool;
 
     /**
      * @param int   $id
      * @param array $data
      *
-     * @return array
+     * @return bool
      */
-    public function updateCustomer(int $id, array $data): array;
+    public function updateCustomer(int $id, array $data): bool;
 
     /**
      * @param int $id
      *
-     * @return array
+     * @return bool
      */
-    public function deleteCustomer(int $id): array;
+    public function deleteCustomer(int $id): bool;
 }

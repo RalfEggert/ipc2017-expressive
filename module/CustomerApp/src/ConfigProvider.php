@@ -9,11 +9,13 @@
 
 namespace CustomerApp;
 
-use CustomerApp\Config\RouterDelegatorFactory;
+use CustomerApp\Action\CustomerCreateAction;
+use CustomerApp\Action\CustomerCreateFactory;
 use CustomerApp\Action\CustomerListAction;
 use CustomerApp\Action\CustomerListFactory;
 use CustomerApp\Action\CustomerShowAction;
 use CustomerApp\Action\CustomerShowFactory;
+use CustomerApp\Config\RouterDelegatorFactory;
 use Zend\Expressive\Application;
 
 /**
@@ -40,9 +42,10 @@ class ConfigProvider
     public function getDependencies(): array
     {
         return [
-            'factories' => [
-                CustomerListAction::class => CustomerListFactory::class,
-                CustomerShowAction::class => CustomerShowFactory::class,
+            'factories'  => [
+                CustomerListAction::class   => CustomerListFactory::class,
+                CustomerShowAction::class   => CustomerShowFactory::class,
+                CustomerCreateAction::class => CustomerCreateFactory::class,
             ],
             'delegators' => [
                 Application::class => [RouterDelegatorFactory::class],

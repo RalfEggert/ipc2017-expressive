@@ -73,20 +73,23 @@ class CustomerStorage implements CustomerStorageInterface
     /**
      * @param array $data
      *
-     * @return array
+     * @return bool
      */
-    public function createCustomer(array $data): array
+    public function createCustomer(array $data): bool
     {
-        // TODO: Implement createCustomer() method.
+        $insert = $this->tableGateway->getSql()->insert();
+        $insert->values($data);
+
+        return $this->tableGateway->insertWith($insert) > 0;
     }
 
     /**
      * @param int   $id
      * @param array $data
      *
-     * @return array
+     * @return bool
      */
-    public function updateCustomer(int $id, array $data): array
+    public function updateCustomer(int $id, array $data): bool
     {
         // TODO: Implement updateCustomer() method.
     }
@@ -94,9 +97,9 @@ class CustomerStorage implements CustomerStorageInterface
     /**
      * @param int $id
      *
-     * @return array
+     * @return bool
      */
-    public function deleteCustomer(int $id): array
+    public function deleteCustomer(int $id): bool
     {
         // TODO: Implement deleteCustomer() method.
     }

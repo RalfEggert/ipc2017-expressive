@@ -31,4 +31,18 @@ interface CustomerRepositoryInterface
      * @throws DomainException
      */
     public function getCustomerById(int $id): array;
+
+    /**
+     * @param $data
+     *
+     * @return bool
+     */
+    public function saveCustomer($data): bool;
+
+    /**
+     * @param $data
+     *
+     * @return bool
+     */
+    public function deleteCustomer($data): bool;
 }
