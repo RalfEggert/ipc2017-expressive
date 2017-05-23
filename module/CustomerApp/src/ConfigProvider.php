@@ -13,6 +13,8 @@ use CustomerApp\Action\CustomerCreateFormAction;
 use CustomerApp\Action\CustomerCreateFormFactory;
 use CustomerApp\Action\CustomerCreateHandleAction;
 use CustomerApp\Action\CustomerCreateHandleFactory;
+use CustomerApp\Action\CustomerDeleteHandleAction;
+use CustomerApp\Action\CustomerDeleteHandleFactory;
 use CustomerApp\Action\CustomerListAction;
 use CustomerApp\Action\CustomerListFactory;
 use CustomerApp\Action\CustomerShowAction;
@@ -58,6 +60,7 @@ class ConfigProvider
                 CustomerCreateHandleAction::class => CustomerCreateHandleFactory::class,
                 CustomerUpdateFormAction::class   => CustomerUpdateFormFactory::class,
                 CustomerUpdateHandleAction::class => CustomerUpdateHandleFactory::class,
+                CustomerDeleteHandleAction::class => CustomerDeleteHandleFactory::class,
             ],
             'delegators' => [
                 Application::class => [RouterDelegatorFactory::class],

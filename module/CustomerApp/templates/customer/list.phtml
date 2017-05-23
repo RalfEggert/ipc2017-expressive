@@ -30,6 +30,9 @@ $createUrl = $this->url('customer-create-form');
       $updateUrl = $this->url(
           'customer-update-form', ['id' => $customer['id']]
       );
+      $deleteUrl = $this->url(
+          'customer-delete-handle', ['id' => $customer['id']]
+      );
       ?>
     <tr>
       <td><?= $customer['id'] ?></td>
@@ -42,6 +45,8 @@ $createUrl = $this->url('customer-create-form');
       <td>
         <a href="<?= $showUrl ?>" class="btn btn-primary">Anzeigen</a>
         <a href="<?= $updateUrl ?>" class="btn btn-primary">Bearbeiten</a>
+        <a href="<?= $deleteUrl ?>" class="btn btn-primary"
+           onClick="return confirm('Kunde wirklich löschen?')">Löschen</a>
       </td>
     </tr>
   <?php endforeach; ?>

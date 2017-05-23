@@ -11,6 +11,7 @@ namespace CustomerApp\Config;
 
 use CustomerApp\Action\CustomerCreateFormAction;
 use CustomerApp\Action\CustomerCreateHandleAction;
+use CustomerApp\Action\CustomerDeleteHandleAction;
 use CustomerApp\Action\CustomerListAction;
 use CustomerApp\Action\CustomerShowAction;
 use CustomerApp\Action\CustomerUpdateFormAction;
@@ -75,6 +76,12 @@ class RouterDelegatorFactory implements DelegatorFactoryInterface
             '/customer/update/:id',
             CustomerUpdateHandleAction::class,
             'customer-update-handle'
+        )->setOptions(['constraints' => ['id' => '[0-9]+']]);
+
+        $app->get(
+            '/customer/delete/:id',
+            CustomerDeleteHandleAction::class,
+            'customer-delete-handle'
         )->setOptions(['constraints' => ['id' => '[0-9]+']]);
 
         return $app;
