@@ -9,6 +9,7 @@
 
 namespace CustomerApp\Action;
 
+use CustomerApp\Form\CustomerForm;
 use CustomerDomain\Repository\CustomerRepositoryInterface;
 use Interop\Http\ServerMiddleware\DelegateInterface;
 use Interop\Http\ServerMiddleware\MiddlewareInterface;
@@ -34,16 +35,25 @@ class CustomerCreateHandleAction implements MiddlewareInterface
     private $router;
 
     /**
+     * @var CustomerForm
+     */
+    private $customerForm;
+
+    /**
      * CustomerCreateHandleAction constructor.
      *
      * @param CustomerRepositoryInterface $customerRepository
      * @param RouterInterface             $router
+     * @param CustomerForm                $customerForm
      */
     public function __construct(
-        CustomerRepositoryInterface $customerRepository, RouterInterface $router
+        CustomerRepositoryInterface $customerRepository,
+        RouterInterface $router,
+        CustomerForm $customerForm
     ) {
         $this->customerRepository = $customerRepository;
         $this->router             = $router;
+        $this->customerForm       = $customerForm;
     }
 
     /**
@@ -60,11 +70,16 @@ class CustomerCreateHandleAction implements MiddlewareInterface
     ) {
         $insertData = $request->getParsedBody();
 
-        $this->customerRepository->saveCustomer($insertData);
+        $this->customerForm->setData($insertData);
 
-        return new RedirectResponse(
-            $this->router->generateUri('customer-list')
-        );
+        if ($this->customerForm->isValid()) {
+            $this->customerRepository->saveCustomer($insertData);
+
+            return new RedirectResponse(
+                $this->router->generateUri('customer-list')
+            );
+        }
+
+        return $delegate->process($request);
     }
-
 }

@@ -62,7 +62,10 @@ class RouterDelegatorFactory implements DelegatorFactoryInterface
 
         $app->post(
             '/customer/create',
-            CustomerCreateHandleAction::class,
+            [
+                CustomerCreateHandleAction::class,
+                CustomerCreateFormAction::class,
+            ],
             'customer-create-handle'
         );
 
@@ -74,7 +77,10 @@ class RouterDelegatorFactory implements DelegatorFactoryInterface
 
         $app->post(
             '/customer/update/:id',
-            CustomerUpdateHandleAction::class,
+            [
+                CustomerUpdateHandleAction::class,
+                CustomerUpdateFormAction::class,
+            ],
             'customer-update-handle'
         )->setOptions(['constraints' => ['id' => '[0-9]+']]);
 

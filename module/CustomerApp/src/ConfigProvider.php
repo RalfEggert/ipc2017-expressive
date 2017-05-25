@@ -25,6 +25,7 @@ use CustomerApp\Action\CustomerUpdateHandleAction;
 use CustomerApp\Action\CustomerUpdateHandleFactory;
 use CustomerApp\Config\RouterDelegatorFactory;
 use CustomerApp\Form\CustomerForm;
+use CustomerApp\Form\CustomerFormFactory;
 use Zend\Expressive\Application;
 use Zend\ServiceManager\Factory\InvokableFactory;
 
@@ -75,7 +76,10 @@ class ConfigProvider
     {
         return [
             'factories' => [
-                CustomerForm::class => InvokableFactory::class,
+                CustomerForm::class => CustomerFormFactory::class,
+            ],
+            'shared' => [
+                CustomerForm::class => true,
             ],
         ];
     }
