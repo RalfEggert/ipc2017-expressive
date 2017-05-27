@@ -9,7 +9,7 @@
 
 namespace CustomerDomain;
 
-use CustomerDomain\Repository\ArrayCustomerRepositoryFactory;
+use CustomerDomain\Repository\CustomerRepositoryFactory;
 use CustomerDomain\Repository\CustomerRepositoryInterface;
 
 /**
@@ -37,7 +37,7 @@ class ConfigProvider
         return [
             'factories' => [
                 CustomerRepositoryInterface::class =>
-                    ArrayCustomerRepositoryFactory::class,
+                    CustomerRepositoryFactory::class,
             ],
         ];
     }
