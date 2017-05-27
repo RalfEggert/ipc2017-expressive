@@ -12,11 +12,11 @@ namespace CustomerDomain\Repository;
 use DomainException;
 
 /**
- * Class ArrayCustomerRepository
+ * Class CustomerRepository
  *
  * @package CustomerDomain\Repository
  */
-class ArrayCustomerRepository implements CustomerRepositoryInterface
+class CustomerRepository implements CustomerRepositoryInterface
 {
     /**
      * @var array
@@ -24,7 +24,7 @@ class ArrayCustomerRepository implements CustomerRepositoryInterface
     private $data = [];
 
     /**
-     * ArrayCustomerRepository constructor.
+     * CustomerRepository constructor.
      *
      * @param array $data
      */

@@ -13,25 +13,25 @@ use Interop\Container\ContainerInterface;
 use Zend\ServiceManager\Factory\FactoryInterface;
 
 /**
- * Class ArrayCustomerRepositoryFactory
+ * Class CustomerRepositoryFactory
  *
  * @package CustomerDomain\Repository
  */
-class ArrayCustomerRepositoryFactory implements FactoryInterface
+class CustomerRepositoryFactory implements FactoryInterface
 {
     /**
      * @param ContainerInterface $container
      * @param string             $requestedName
      * @param array|null         $options
      *
-     * @return ArrayCustomerRepository
+     * @return CustomerRepository
      */
     public function __invoke(
         ContainerInterface $container, $requestedName, array $options = null
-    ): ArrayCustomerRepository {
+    ): CustomerRepository {
         $data = include __DIR__ . '/../../../../data/customer.php';
 
-        $repository = new ArrayCustomerRepository($data);
+        $repository = new CustomerRepository($data);
 
         return $repository;
     }
