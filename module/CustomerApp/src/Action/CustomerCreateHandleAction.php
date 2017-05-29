@@ -85,7 +85,7 @@ class CustomerCreateHandleAction implements MiddlewareInterface
         $this->inputFilter->setData($insertData);
 
         if ($this->inputFilter->isValid()) {
-            $this->repository->saveCustomer($insertData);
+            $this->repository->saveCustomer($this->inputFilter->getValues());
 
             return new RedirectResponse($this->router->generateUri('customer'));
         }

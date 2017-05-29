@@ -18,6 +18,15 @@ class PingAction implements ServerMiddlewareInterface
 {
     public function process(ServerRequestInterface $request, DelegateInterface $delegate)
     {
-        return new JsonResponse(['ack' => time()]);
+        $user = [
+            'Adrian',
+            'Stefan',
+            'Theo',
+            'Christian',
+        ];
+
+        $id = array_rand($user);
+
+        return new JsonResponse(['gewinner' => $user[$id]]);
     }
 }
