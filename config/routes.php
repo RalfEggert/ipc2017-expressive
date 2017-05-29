@@ -26,5 +26,9 @@
  * );
  */
 
+use CustomerApp\Action\CustomerListAction;
+use Zend\Diactoros\Response\HtmlResponse;
+
 $app->get('/', App\Action\HomePageAction::class, 'home');
 $app->get('/api/ping', App\Action\PingAction::class, 'api.ping');
+$app->get('/customer', CustomerListAction::class, 'customer');

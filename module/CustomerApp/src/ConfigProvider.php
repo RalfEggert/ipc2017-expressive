@@ -9,15 +9,24 @@
 
 namespace CustomerApp;
 
+use CustomerApp\Action\CustomerListAction;
+use CustomerApp\Action\CustomerListFactory;
+
 class ConfigProvider
 {
-    public function __invoke() : array
+    public function __invoke(): array
     {
-        var_dump(__METHOD__);
-
         return [
-            'dependencies' => [],
-            'templates'    => [],
+            'dependencies' => [
+                'factories' => [
+                    CustomerListAction::class => CustomerListFactory::class,
+                ],
+            ],
+            'templates'    => [
+                'paths' => [
+                    'customer-app' => [__DIR__ . '/../templates/customer-app'],
+                ],
+            ],
         ];
     }
 }
