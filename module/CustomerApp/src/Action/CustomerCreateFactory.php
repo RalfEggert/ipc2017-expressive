@@ -17,9 +17,9 @@
 
 namespace CustomerApp\Action;
 
+use CustomerApp\Form\CustomerForm;
 use CustomerDomain\Repository\CustomerRepositoryInterface;
 use Interop\Container\ContainerInterface;
-use Zend\Expressive\Router\RouterInterface;
 use Zend\Expressive\Template\TemplateRendererInterface;
 use Zend\ServiceManager\Factory\FactoryInterface;
 
@@ -40,11 +40,13 @@ class CustomerCreateFactory implements FactoryInterface
     public function __invoke(
         ContainerInterface $container, $requestedName, array $options = null
     ) {
-        $template   = $container->get(TemplateRendererInterface::class);
-        $repository = $container->get(CustomerRepositoryInterface::class);
-        $router     = $container->get(RouterInterface::class);
+        $formElementManager = $container->get('FormElementManager');
 
-        return new CustomerCreateAction($template, $repository, $router);
+        $template     = $container->get(TemplateRendererInterface::class);
+        $repository   = $container->get(CustomerRepositoryInterface::class);
+        $customerForm = $formElementManager->get(CustomerForm::class);
+
+        return new CustomerCreateAction($template, $repository, $customerForm);
     }
 
 }

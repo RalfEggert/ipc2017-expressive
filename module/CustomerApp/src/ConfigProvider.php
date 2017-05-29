@@ -16,7 +16,9 @@ use CustomerApp\Action\CustomerListFactory;
 use CustomerApp\Action\CustomerShowAction;
 use CustomerApp\Action\CustomerShowFactory;
 use CustomerApp\Config\RouterDelegateFactory;
+use CustomerApp\Form\CustomerForm;
 use Zend\Expressive\Application;
+use Zend\ServiceManager\Factory\InvokableFactory;
 
 class ConfigProvider
 {
@@ -33,6 +35,11 @@ class ConfigProvider
                     Application::class => [
                         RouterDelegateFactory::class,
                     ],
+                ],
+            ],
+            'form_elements' => [
+                'factories' => [
+                    CustomerForm::class => InvokableFactory::class,
                 ],
             ],
             'templates'    => [

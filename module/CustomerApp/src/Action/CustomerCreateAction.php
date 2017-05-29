@@ -9,15 +9,19 @@
 
 namespace CustomerApp\Action;
 
+use CustomerApp\Form\CustomerForm;
 use CustomerDomain\Repository\CustomerRepositoryInterface;
 use Interop\Http\ServerMiddleware\DelegateInterface;
 use Interop\Http\ServerMiddleware\MiddlewareInterface;
-use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
-use Zend\Diactoros\Response\RedirectResponse;
-use Zend\Expressive\Router\RouterInterface;
+use Zend\Diactoros\Response\HtmlResponse;
 use Zend\Expressive\Template\TemplateRendererInterface;
 
+/**
+ * Class CustomerCreateAction
+ *
+ * @package CustomerApp\Action
+ */
 class CustomerCreateAction implements MiddlewareInterface
 {
     /**
@@ -31,25 +35,25 @@ class CustomerCreateAction implements MiddlewareInterface
     private $repository;
 
     /**
-     * @var RouterInterface
+     * @var CustomerForm
      */
-    private $router;
+    private $customerForm;
 
     /**
-     * CustomerShowAction constructor.
+     * CustomerCreateAction constructor.
      *
      * @param TemplateRendererInterface   $template
      * @param CustomerRepositoryInterface $repository
-     * @param RouterInterface             $router
+     * @param CustomerForm                $customerForm
      */
     public function __construct(
         TemplateRendererInterface $template,
         CustomerRepositoryInterface $repository,
-        RouterInterface $router
+        CustomerForm $customerForm
     ) {
-        $this->template   = $template;
-        $this->repository = $repository;
-        $this->router     = $router;
+        $this->template     = $template;
+        $this->repository   = $repository;
+        $this->customerForm = $customerForm;
     }
 
     /**
@@ -61,18 +65,12 @@ class CustomerCreateAction implements MiddlewareInterface
     public function process(
         ServerRequestInterface $request, DelegateInterface $delegate
     ) {
-        $insertData = [
-            'date'       => '2017-05-21 00:00:00',
-            'status'     => 'new',
-            'first_name' => 'Ralf',
-            'last_name'  => 'Eggert',
-            'country'    => 'de',
-            'email'      => 'ralf@travello.de',
-            'password'   => '$2y$10$HyizHhdxyOL/3ymghfdCNui7CBuhDyL1aIzKJbgLcg9HEQsvhQuma',
+        $data = [
+            'customerForm' => $this->customerForm,
         ];
 
-        $this->repository->saveCustomer($insertData);
-
-        return new RedirectResponse($this->router->generateUri('customer'));
+        return new HtmlResponse(
+            $this->template->render('customer-app::create', $data)
+        );
     }
 }
