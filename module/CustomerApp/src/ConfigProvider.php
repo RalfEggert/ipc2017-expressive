@@ -11,6 +11,8 @@ namespace CustomerApp;
 
 use CustomerApp\Action\CustomerListAction;
 use CustomerApp\Action\CustomerListFactory;
+use CustomerApp\Action\CustomerShowAction;
+use CustomerApp\Action\CustomerShowFactory;
 
 class ConfigProvider
 {
@@ -20,12 +22,13 @@ class ConfigProvider
             'dependencies' => [
                 'factories' => [
                     CustomerListAction::class => CustomerListFactory::class,
+                    CustomerShowAction::class => CustomerShowFactory::class,
                 ],
             ],
             'templates'    => [
                 'paths' => [
                     'customer-app' => [__DIR__ . '/../templates/customer-app'],
-                ],
+                 ],
             ],
         ];
     }

@@ -19,10 +19,14 @@
     <th>Land</th>
     <th>Status</th>
     <th>Datum</th>
+    <th></th>
   </tr>
   </thead>
   <tbody>
   <?php foreach ($this->customerList as $customer) : ?>
+      <?php
+      $urlShow = $this->url('customer-show', ['id' => $customer['id']]);
+      ?>
     <tr>
       <td><?= $customer['id']; ?></td>
       <td><?= $customer['first_name']; ?></td>
@@ -31,6 +35,11 @@
       <td><?= $customer['country']; ?></td>
       <td><?= $customer['status']; ?></td>
       <td><?= $customer['date']; ?></td>
+      <td>
+        <a href="<?= $urlShow; ?>" class="btn btn-primary">
+          Anzeigen
+        </a>
+      </td>
     </tr>
   <?php endforeach; ?>
   </tbody>
