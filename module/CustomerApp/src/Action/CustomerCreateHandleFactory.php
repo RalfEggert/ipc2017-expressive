@@ -10,6 +10,7 @@
 namespace CustomerApp\Action;
 
 use CustomerApp\Form\CustomerForm;
+use CustomerDomain\InputFilter\CustomerInputFilter;
 use CustomerDomain\Repository\CustomerRepositoryInterface;
 use Interop\Container\ContainerInterface;
 use Zend\Expressive\Router\RouterInterface;
@@ -33,14 +34,15 @@ class CustomerCreateHandleFactory implements FactoryInterface
         ContainerInterface $container, $requestedName, array $options = null
     ) {
         $formElementManager = $container->get('FormElementManager');
+        $inputFilterManager = $container->get('InputFilterManager');
 
         $repository   = $container->get(CustomerRepositoryInterface::class);
         $customerForm = $formElementManager->get(CustomerForm::class);
         $router       = $container->get(RouterInterface::class);
+        $inputFilter  = $inputFilterManager->get(CustomerInputFilter::class);
 
         return new CustomerCreateHandleAction(
-            $repository, $customerForm, $router
+            $repository, $customerForm, $router, $inputFilter
         );
     }
-
 }

@@ -47,6 +47,9 @@ class ConfigProvider
                 'factories' => [
                     CustomerForm::class => InvokableFactory::class,
                 ],
+                'shared' => [
+                    CustomerForm::class => true,
+                ],
             ],
             'templates'     => [
                 'paths' => [

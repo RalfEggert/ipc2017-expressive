@@ -9,10 +9,12 @@
 
 namespace CustomerDomain;
 
+use CustomerDomain\InputFilter\CustomerInputFilter;
 use CustomerDomain\Repository\CustomerRepositoryFactory;
 use CustomerDomain\Repository\CustomerRepositoryInterface;
 use CustomerDomain\Storage\CustomerStorageFactory;
 use CustomerDomain\Storage\CustomerStorageInterface;
+use Zend\ServiceManager\Factory\InvokableFactory;
 
 /**
  * Class ConfigProvider
@@ -27,7 +29,7 @@ class ConfigProvider
     public function __invoke(): array
     {
         return [
-            'dependencies' => [
+            'dependencies'  => [
                 'factories' => [
                     CustomerRepositoryInterface::class =>
                         CustomerRepositoryFactory::class,
@@ -36,7 +38,12 @@ class ConfigProvider
                         CustomerStorageFactory::class,
                 ],
             ],
-            'templates'    => [],
+            'input_filters' => [
+                'factories' => [
+                    CustomerInputFilter::class => InvokableFactory::class,
+                ],
+            ],
+            'templates'     => [],
         ];
     }
 }

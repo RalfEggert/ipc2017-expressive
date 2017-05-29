@@ -60,7 +60,11 @@ class RouterDelegateFactory implements DelegatorFactoryInterface
         );
 
         $app->post(
-            '/customer/create', CustomerCreateHandleAction::class,
+            '/customer/create',
+            [
+                CustomerCreateHandleAction::class,
+                CustomerCreateFormAction::class,
+            ],
             'customer-create-handle'
         );
 

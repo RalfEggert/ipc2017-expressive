@@ -18,6 +18,7 @@
 namespace CustomerApp\Action;
 
 use CustomerApp\Form\CustomerForm;
+use CustomerDomain\InputFilter\CustomerInputFilter;
 use CustomerDomain\Repository\CustomerRepositoryInterface;
 use Interop\Http\ServerMiddleware\DelegateInterface;
 use Interop\Http\ServerMiddleware\MiddlewareInterface;
@@ -48,20 +49,26 @@ class CustomerCreateHandleAction implements MiddlewareInterface
     private $router;
 
     /**
+     * @var CustomerInputFilter
+     */
+    private $inputFilter;
+
+    /**
      * CustomerCreateHandleAction constructor.
      *
      * @param CustomerRepositoryInterface $repository
      * @param CustomerForm                $customerForm
      * @param RouterInterface             $router
+     * @param CustomerInputFilter         $inputFilter
      */
     public function __construct(
-        CustomerRepositoryInterface $repository,
-        CustomerForm $customerForm,
-        RouterInterface $router
+        CustomerRepositoryInterface $repository, CustomerForm $customerForm,
+        RouterInterface $router, CustomerInputFilter $inputFilter
     ) {
-        $this->repository   = $repository;
+        $this->repository = $repository;
         $this->customerForm = $customerForm;
-        $this->router       = $router;
+        $this->router = $router;
+        $this->inputFilter = $inputFilter;
     }
 
     /**
@@ -75,8 +82,17 @@ class CustomerCreateHandleAction implements MiddlewareInterface
     ) {
         $insertData = $request->getParsedBody();
 
-        $this->repository->saveCustomer($insertData);
+        $this->inputFilter->setData($insertData);
 
-        return new RedirectResponse($this->router->generateUri('customer'));
+        if ($this->inputFilter->isValid()) {
+            $this->repository->saveCustomer($insertData);
+
+            return new RedirectResponse($this->router->generateUri('customer'));
+        }
+
+        $this->customerForm->setData($this->inputFilter->getRawValues());
+        $this->customerForm->setMessages($this->inputFilter->getMessages());
+
+        return $delegate->process($request);
     }
 }

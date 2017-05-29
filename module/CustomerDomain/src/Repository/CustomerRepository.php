@@ -62,6 +62,8 @@ class CustomerRepository implements CustomerRepositoryInterface
             unset($data['save_customer']);
         }
 
+        $data['date'] = date('Y-m-d H:i:s');
+
         if (isset($data['password']) && !empty($data['password'])) {
             $data['password'] = password_hash($data['password'], PASSWORD_BCRYPT);
         } else {
