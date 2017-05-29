@@ -9,6 +9,8 @@
 
 namespace CustomerApp;
 
+use CustomerApp\Action\CustomerCreateAction;
+use CustomerApp\Action\CustomerCreateFactory;
 use CustomerApp\Action\CustomerListAction;
 use CustomerApp\Action\CustomerListFactory;
 use CustomerApp\Action\CustomerShowAction;
@@ -23,8 +25,9 @@ class ConfigProvider
         return [
             'dependencies' => [
                 'factories'  => [
-                    CustomerListAction::class => CustomerListFactory::class,
-                    CustomerShowAction::class => CustomerShowFactory::class,
+                    CustomerListAction::class   => CustomerListFactory::class,
+                    CustomerShowAction::class   => CustomerShowFactory::class,
+                    CustomerCreateAction::class => CustomerCreateFactory::class,
                 ],
                 'delegators' => [
                     Application::class => [
