@@ -9,14 +9,28 @@
 
 namespace CustomerDomain;
 
+use CustomerDomain\Repository\CustomerRepositoryFactory;
+use CustomerDomain\Repository\CustomerRepositoryInterface;
+
+/**
+ * Class ConfigProvider
+ *
+ * @package CustomerDomain
+ */
 class ConfigProvider
 {
-    public function __invoke() : array
+    /**
+     * @return array
+     */
+    public function __invoke(): array
     {
-        var_dump(__METHOD__);
-
         return [
-            'dependencies' => [],
+            'dependencies' => [
+                'factories' => [
+                    CustomerRepositoryInterface::class =>
+                        CustomerRepositoryFactory::class,
+                ],
+            ],
             'templates'    => [],
         ];
     }
