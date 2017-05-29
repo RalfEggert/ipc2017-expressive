@@ -18,6 +18,7 @@
 namespace CustomerApp\Config;
 
 use CustomerApp\Action\CustomerCreateFormAction;
+use CustomerApp\Action\CustomerCreateHandleAction;
 use CustomerApp\Action\CustomerListAction;
 use CustomerApp\Action\CustomerShowAction;
 use CustomerApp\Action\CustomerUpdateFormAction;
@@ -56,6 +57,11 @@ class RouterDelegateFactory implements DelegatorFactoryInterface
         $app->get(
             '/customer/create', CustomerCreateFormAction::class,
             'customer-create-form'
+        );
+
+        $app->post(
+            '/customer/create', CustomerCreateHandleAction::class,
+            'customer-create-handle'
         );
 
         $app->get(

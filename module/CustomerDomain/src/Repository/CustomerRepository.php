@@ -58,6 +58,16 @@ class CustomerRepository implements CustomerRepositoryInterface
      */
     public function saveCustomer(array $data): bool
     {
+        if (isset($data['save_customer'])) {
+            unset($data['save_customer']);
+        }
+
+        if (isset($data['password']) && !empty($data['password'])) {
+            $data['password'] = password_hash($data['password'], PASSWORD_BCRYPT);
+        } else {
+            unset($data['password']);
+        }
+
         if (!isset($data['id'])) {
             return $this->storage->createCustomer($data);
         } else {
