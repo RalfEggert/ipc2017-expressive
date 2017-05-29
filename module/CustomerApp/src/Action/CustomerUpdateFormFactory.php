@@ -15,6 +15,14 @@
  * @license    http://opensource.org/licenses/MIT The MIT License (MIT)
  */
 
+/**
+ * IPC2017 Zend\Expressive Workshop
+ *
+ * @author     Ralf Eggert <ralf@travello.de>
+ * @link       https://github.com/RalfEggert/ipc2017-expressive
+ * @license    http://opensource.org/licenses/MIT The MIT License (MIT)
+ */
+
 namespace CustomerApp\Action;
 
 use CustomerApp\Form\CustomerForm;
@@ -24,11 +32,11 @@ use Zend\Expressive\Template\TemplateRendererInterface;
 use Zend\ServiceManager\Factory\FactoryInterface;
 
 /**
- * Class CustomerCreateFactory
+ * Class CustomerUpdateFormFactory
  *
  * @package CustomerApp\Action
  */
-class CustomerCreateFactory implements FactoryInterface
+class CustomerUpdateFormFactory implements FactoryInterface
 {
     /**
      * @param ContainerInterface $container
@@ -46,7 +54,7 @@ class CustomerCreateFactory implements FactoryInterface
         $repository   = $container->get(CustomerRepositoryInterface::class);
         $customerForm = $formElementManager->get(CustomerForm::class);
 
-        return new CustomerCreateAction($template, $repository, $customerForm);
+        return new CustomerUpdateFormAction($template, $repository, $customerForm);
     }
 
 }

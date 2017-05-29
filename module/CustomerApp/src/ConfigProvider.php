@@ -9,12 +9,14 @@
 
 namespace CustomerApp;
 
-use CustomerApp\Action\CustomerCreateAction;
-use CustomerApp\Action\CustomerCreateFactory;
+use CustomerApp\Action\CustomerCreateFormAction;
+use CustomerApp\Action\CustomerCreateFormFactory;
 use CustomerApp\Action\CustomerListAction;
 use CustomerApp\Action\CustomerListFactory;
 use CustomerApp\Action\CustomerShowAction;
 use CustomerApp\Action\CustomerShowFactory;
+use CustomerApp\Action\CustomerUpdateFormAction;
+use CustomerApp\Action\CustomerUpdateFormFactory;
 use CustomerApp\Config\RouterDelegateFactory;
 use CustomerApp\Form\CustomerForm;
 use Zend\Expressive\Application;
@@ -25,11 +27,12 @@ class ConfigProvider
     public function __invoke(): array
     {
         return [
-            'dependencies' => [
+            'dependencies'  => [
                 'factories'  => [
-                    CustomerListAction::class   => CustomerListFactory::class,
-                    CustomerShowAction::class   => CustomerShowFactory::class,
-                    CustomerCreateAction::class => CustomerCreateFactory::class,
+                    CustomerListAction::class       => CustomerListFactory::class,
+                    CustomerShowAction::class       => CustomerShowFactory::class,
+                    CustomerCreateFormAction::class => CustomerCreateFormFactory::class,
+                    CustomerUpdateFormAction::class => CustomerUpdateFormFactory::class,
                 ],
                 'delegators' => [
                     Application::class => [
@@ -42,7 +45,7 @@ class ConfigProvider
                     CustomerForm::class => InvokableFactory::class,
                 ],
             ],
-            'templates'    => [
+            'templates'     => [
                 'paths' => [
                     'customer-app' => [__DIR__ . '/../templates/customer-app'],
                 ],
