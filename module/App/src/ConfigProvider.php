@@ -8,6 +8,7 @@
  */
 
 namespace App;
+use App\Config\PipelineDelegateFactory;
 use App\Config\RouterDelegateFactory;
 use Zend\Expressive\Application;
 
@@ -50,6 +51,7 @@ class ConfigProvider
             ],
             'delegators' => [
                 Application::class => [
+                    PipelineDelegateFactory::class,
                     RouterDelegateFactory::class,
                 ],
             ],
