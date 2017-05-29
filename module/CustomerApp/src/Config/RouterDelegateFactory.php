@@ -55,7 +55,7 @@ class RouterDelegateFactory implements DelegatorFactoryInterface
 
         $app->get(
             '/customer/create', CustomerCreateFormAction::class,
-            'customer-create'
+            'customer-create-form'
         );
 
         $app->get(

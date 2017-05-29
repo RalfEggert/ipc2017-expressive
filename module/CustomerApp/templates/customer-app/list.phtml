@@ -7,6 +7,7 @@
  * @license    http://opensource.org/licenses/MIT The MIT License (MIT)
  */
 
+$urlCreate= $this->url('customer-create-form');
 ?>
 <h1>Kundenliste</h1>
 <table class="table">
@@ -19,13 +20,18 @@
     <th>Land</th>
     <th>Status</th>
     <th>Datum</th>
-    <th></th>
+    <th>
+      <a href="<?= $urlCreate; ?>" class="btn btn-primary">
+        Anlegen
+      </a>
+    </th>
   </tr>
   </thead>
   <tbody>
   <?php foreach ($this->customerList as $customer) : ?>
       <?php
       $urlShow = $this->url('customer-show', ['id' => $customer['id']]);
+      $urlUpdate= $this->url('customer-update-form', ['id' => $customer['id']]);
       ?>
     <tr>
       <td><?= $customer['id']; ?></td>
@@ -38,6 +44,9 @@
       <td>
         <a href="<?= $urlShow; ?>" class="btn btn-primary">
           Anzeigen
+        </a>
+        <a href="<?= $urlUpdate; ?>" class="btn btn-primary">
+          Bearbeiten
         </a>
       </td>
     </tr>
