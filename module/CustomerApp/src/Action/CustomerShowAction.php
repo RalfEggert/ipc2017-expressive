@@ -14,6 +14,8 @@ use Interop\Http\ServerMiddleware\DelegateInterface;
 use Interop\Http\ServerMiddleware\MiddlewareInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Zend\Diactoros\Response\HtmlResponse;
+use Zend\Diactoros\Response\RedirectResponse;
+use Zend\Expressive\Router\RouterInterface;
 use Zend\Expressive\Template\TemplateRendererInterface;
 
 /**
@@ -34,17 +36,25 @@ class CustomerShowAction implements MiddlewareInterface
     private $repository;
 
     /**
+     * @var RouterInterface
+     */
+    private $router;
+
+    /**
      * CustomerShowAction constructor.
      *
      * @param TemplateRendererInterface   $template
      * @param CustomerRepositoryInterface $repository
+     * @param RouterInterface             $router
      */
     public function __construct(
         TemplateRendererInterface $template,
-        CustomerRepositoryInterface $repository
+        CustomerRepositoryInterface $repository,
+        RouterInterface $router
     ) {
         $this->template   = $template;
         $this->repository = $repository;
+        $this->router     = $router;
     }
 
     /**
@@ -57,6 +67,10 @@ class CustomerShowAction implements MiddlewareInterface
         ServerRequestInterface $request, DelegateInterface $delegate
     ) {
         $id = $request->getAttribute('id');
+
+        if (is_null($id)) {
+            return new RedirectResponse($this->router->generateUri('customer'));
+        }
 
         $data = [
             'customer' => $this->repository->getCustomerById($id),

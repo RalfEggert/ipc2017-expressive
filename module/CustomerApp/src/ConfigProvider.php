@@ -13,6 +13,8 @@ use CustomerApp\Action\CustomerListAction;
 use CustomerApp\Action\CustomerListFactory;
 use CustomerApp\Action\CustomerShowAction;
 use CustomerApp\Action\CustomerShowFactory;
+use CustomerApp\Config\RouterDelegateFactory;
+use Zend\Expressive\Application;
 
 class ConfigProvider
 {
@@ -20,15 +22,20 @@ class ConfigProvider
     {
         return [
             'dependencies' => [
-                'factories' => [
+                'factories'  => [
                     CustomerListAction::class => CustomerListFactory::class,
                     CustomerShowAction::class => CustomerShowFactory::class,
+                ],
+                'delegators' => [
+                    Application::class => [
+                        RouterDelegateFactory::class,
+                    ],
                 ],
             ],
             'templates'    => [
                 'paths' => [
                     'customer-app' => [__DIR__ . '/../templates/customer-app'],
-                 ],
+                ],
             ],
         ];
     }

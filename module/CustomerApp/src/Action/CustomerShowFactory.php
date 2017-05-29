@@ -11,6 +11,7 @@ namespace CustomerApp\Action;
 
 use CustomerDomain\Repository\CustomerRepositoryInterface;
 use Interop\Container\ContainerInterface;
+use Zend\Expressive\Router\RouterInterface;
 use Zend\Expressive\Template\TemplateRendererInterface;
 use Zend\ServiceManager\Factory\FactoryInterface;
 
@@ -33,8 +34,9 @@ class CustomerShowFactory implements FactoryInterface
     ) {
         $template   = $container->get(TemplateRendererInterface::class);
         $repository = $container->get(CustomerRepositoryInterface::class);
+        $router     = $container->get(RouterInterface::class);
 
-        return new CustomerShowAction($template, $repository);
+        return new CustomerShowAction($template, $repository, $router);
     }
 
 }

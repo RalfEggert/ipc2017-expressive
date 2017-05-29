@@ -8,6 +8,8 @@
  */
 
 namespace App;
+use App\Config\RouterDelegateFactory;
+use Zend\Expressive\Application;
 
 /**
  * The configuration provider for the App module
@@ -45,6 +47,11 @@ class ConfigProvider
             ],
             'factories'  => [
                 Action\HomePageAction::class => Action\HomePageFactory::class,
+            ],
+            'delegators' => [
+                Application::class => [
+                    RouterDelegateFactory::class,
+                ],
             ],
         ];
     }
