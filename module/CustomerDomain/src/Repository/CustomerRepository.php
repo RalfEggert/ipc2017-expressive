@@ -9,6 +9,8 @@
 
 namespace CustomerDomain\Repository;
 
+use CustomerDomain\Storage\CustomerStorageInterface;
+
 /**
  * Class CustomerRepository
  *
@@ -17,18 +19,18 @@ namespace CustomerDomain\Repository;
 class CustomerRepository implements CustomerRepositoryInterface
 {
     /**
-     * @var array
+     * @var CustomerStorageInterface
      */
-    private $data = [];
+    private $storage;
 
     /**
      * CustomerRepository constructor.
      *
-     * @param array $data
+     * @param CustomerStorageInterface $storage
      */
-    public function __construct(array $data)
+    public function __construct(CustomerStorageInterface $storage)
     {
-        $this->data = $data;
+        $this->storage = $storage;
     }
 
     /**
@@ -36,7 +38,7 @@ class CustomerRepository implements CustomerRepositoryInterface
      */
     public function getCustomerList(): array
     {
-        return $this->data;
+        return $this->storage->fetchCustomerRows();
     }
 
     /**
@@ -46,10 +48,6 @@ class CustomerRepository implements CustomerRepositoryInterface
      */
     public function getCustomerById(int $id): array
     {
-        if (!isset($this->data[$id])) {
-            throw new \DomainException('Id nicht bekannt');
-        }
-
-        return $this->data[$id];
+        return $this->storage->fetchSingleById($id);
     }
 }

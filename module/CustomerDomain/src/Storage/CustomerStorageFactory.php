@@ -7,18 +7,20 @@
  * @license    http://opensource.org/licenses/MIT The MIT License (MIT)
  */
 
-namespace CustomerDomain\Repository;
+namespace CustomerDomain\Storage;
 
-use CustomerDomain\Storage\CustomerStorageInterface;
 use Interop\Container\ContainerInterface;
+use Zend\Db\Adapter\AdapterInterface;
+use Zend\Db\ResultSet\ResultSet;
+use Zend\Db\TableGateway\TableGateway;
 use Zend\ServiceManager\Factory\FactoryInterface;
 
 /**
- * Class CustomerRepositoryFactory
+ * Class CustomerStorageFactory
  *
- * @package CustomerDomain\Repository
+ * @package CustomerDomain\Storage
  */
-class CustomerRepositoryFactory implements FactoryInterface
+class CustomerStorageFactory implements FactoryInterface
 {
     /**
      * @param ContainerInterface $container
@@ -30,8 +32,14 @@ class CustomerRepositoryFactory implements FactoryInterface
     public function __invoke(
         ContainerInterface $container, $requestedName, array $options = null
     ) {
-        $storage = $container->get(CustomerStorageInterface::class);
+        $adapter = $container->get(AdapterInterface::class);
 
-        return new CustomerRepository($storage);
+        $resultSetPrototype = new ResultSet(ResultSet::TYPE_ARRAY);
+
+        $tableGateway = new TableGateway(
+            'customer', $adapter, null, $resultSetPrototype
+        );
+
+        return new CustomerStorage($tableGateway);
     }
 }

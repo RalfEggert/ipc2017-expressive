@@ -11,6 +11,8 @@ namespace CustomerDomain;
 
 use CustomerDomain\Repository\CustomerRepositoryFactory;
 use CustomerDomain\Repository\CustomerRepositoryInterface;
+use CustomerDomain\Storage\CustomerStorageFactory;
+use CustomerDomain\Storage\CustomerStorageInterface;
 
 /**
  * Class ConfigProvider
@@ -29,6 +31,9 @@ class ConfigProvider
                 'factories' => [
                     CustomerRepositoryInterface::class =>
                         CustomerRepositoryFactory::class,
+
+                    CustomerStorageInterface::class =>
+                        CustomerStorageFactory::class,
                 ],
             ],
             'templates'    => [],
