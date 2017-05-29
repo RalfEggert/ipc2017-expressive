@@ -10,6 +10,7 @@
 namespace CustomerDomain\Storage;
 
 use Zend\Db\ResultSet\ResultSet;
+use Zend\Db\Sql\Expression;
 use Zend\Db\TableGateway\TableGateway;
 
 /**
@@ -62,5 +63,46 @@ class CustomerStorage implements CustomerStorageInterface
         $resultSet = $this->tableGateway->selectWith($select);
 
         return $resultSet->current();
+    }
+
+    /**
+     * @param array $data
+     *
+     * @return bool
+     */
+    public function createCustomer(array $data): bool
+    {
+        $insert = $this->tableGateway->getSql()->insert();
+        $insert->values($data);
+
+        return $this->tableGateway->insertWith($insert) > 0;
+    }
+
+    /**
+     * @param int   $id
+     * @param array $data
+     *
+     * @return bool
+     */
+    public function updateCustomer(int $id, array $data): bool
+    {
+        $update = $this->tableGateway->getSql()->update();
+        $update->set($data);
+        $update->where->equalTo('id', $id);
+
+        return $this->tableGateway->updateWith($update) > 0;
+    }
+
+    /**
+     * @param int $id
+     *
+     * @return bool
+     */
+    public function deleteCustomer(int $id): bool
+    {
+        $delete = $this->tableGateway->getSql()->delete();
+        $delete->where->equalTo('id', $id);
+
+        return $this->tableGateway->deleteWith($delete) > 0;
     }
 }

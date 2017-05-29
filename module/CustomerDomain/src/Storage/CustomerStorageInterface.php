@@ -27,4 +27,26 @@ interface CustomerStorageInterface
      * @return array
      */
     public function fetchSingleById(int $id): array;
+
+    /**
+     * @param array $data
+     *
+     * @return bool
+     */
+    public function createCustomer(array $data): bool;
+
+    /**
+     * @param int   $id
+     * @param array $data
+     *
+     * @return bool
+     */
+    public function updateCustomer(int $id, array $data): bool;
+
+    /**
+     * @param int $id
+     *
+     * @return bool
+     */
+    public function deleteCustomer(int $id): bool;
 }

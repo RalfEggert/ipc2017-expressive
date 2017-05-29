@@ -14,17 +14,36 @@ namespace CustomerDomain\Repository;
  *
  * @package CustomerDomain\Repository
  */
+/**
+ * Interface CustomerRepositoryInterface
+ *
+ * @package CustomerDomain\Repository
+ */
 interface CustomerRepositoryInterface
 {
     /**
      * @return array
      */
-    public function getCustomerList() : array;
+    public function getCustomerList(): array;
 
     /**
      * @param int $id
      *
      * @return array
      */
-    public function getCustomerById(int $id) : array;
+    public function getCustomerById(int $id): array;
+
+    /**
+     * @param array $data
+     *
+     * @return bool
+     */
+    public function saveCustomer(array $data): bool;
+
+    /**
+     * @param int $id
+     *
+     * @return bool
+     */
+    public function removeCustomer(int $id): bool;
 }
